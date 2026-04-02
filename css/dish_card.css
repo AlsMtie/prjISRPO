@@ -1,0 +1,116 @@
+.dish-card {
+    width: 225px;
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'El Messiri';
+    padding: 0 0 15px 0; 
+}
+
+.dish-image {
+    height: 211px;
+    width: 225px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #B13720;
+    align-items: center;
+}
+
+.dish-title {
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+    padding-left: 8px;
+    padding-top: 10px;
+    margin-bottom: 5px; 
+}
+
+.dish-name {
+    font-size: 22px;
+    font-family: 'El Messiri';
+    font-weight: 600;
+    line-height: 1;
+    text-align: left;
+    flex: 1;
+    word-wrap: break-word; 
+}
+
+.dish-gram {
+    font-family: 'El Messiri';
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dish-sostav {
+    font-family: 'El Messiri';
+    font-size: 16px;
+    font-weight: 600;
+    color: #9F9F9F;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    height: 65px;
+    min-height: 65px;
+    max-height: 65px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+.sostav-text {
+    margin: 0;
+    padding: 0;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box; 
+    margin-top: 5px;
+}
+
+.dish-price {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.currency {
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+.add-to-cart-btn {
+    border: 0px;
+    border-radius: 39px;
+    height: 39px;
+    width: 80px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    background-color: #B13720;
+    box-shadow: 0 4px 20px #807F8F;
+    flex-shrink: 0;
+}
+.add-plus {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    line-height: 1;
+}
+
+.cart-icon {
+    width: 20px;
+    height: 20px;
+}

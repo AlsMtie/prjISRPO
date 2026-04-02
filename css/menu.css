@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*исправить чтобы при пролистывании на чуть меньшем экране левый контейнер не слетал*/
+
+body {
+    background-color: #F3F3F5;
+}
+
+.menu-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 15px 40px 0 40px;
+    min-height: 1435px;
+}
+
+.left-container {
+    width: 384px;
+    min-height: 1435px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+}
+
+.right-container {
+    width: 1322px;
+    min-height: 1435px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    flex: 1;
+}
+
+.dishes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    height: 45px;
+    padding: 10px 45px 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-family: 'El Messiri';
+    font-size: 16px;
+}
+
+.search-input:focus,
+.search-input:hover {
+    border-color: #B13720;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+}
+
+.categories-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.category-item {
+    width: 243px;
+    height: 219px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.category-item:hover {
+    border-color: #B13720;
+}
+
+.category-icon {
+    width: 190px;
+    height: 140px;
+    margin-bottom: 8px;
+    object-fit: contain;
+}
+
+.category-name {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1.3;
+}
+
+.filter-content ul {
+    list-style: none;
+}
+
+.spacer {
+    height: 1000px;
+}

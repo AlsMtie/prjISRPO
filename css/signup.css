@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #F3F3F5;
+}
+
+.auth-container {
+    display: block;
+    background-color: #B6B5CE;
+    border: 0px;
+    border-radius: 10px;
+    width: 500px;
+    margin: 30px auto 0 auto;
+    align-items: center;
+    padding-bottom: 30px;
+    position: relative;
+    box-shadow: -10px 10px 20px #B9B9B9;
+}
+
+.auth-text {
+    font-family: "El Messiri";
+    font-weight: 800;
+    color: #B13720;
+    font-size: 40px;
+    text-align: center;
+    text-shadow: 0px 4px 4px #7c7a7a;
+    position: relative;
+    padding: 15px 0 12px 0;
+    margin-bottom: 15px;
+}
+
+.auth-text::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 1px;
+    background-color: #686778;
+}
+
+.input {
+    height: 45px;
+    border: 2px solid #686778;
+    border-radius: 12px;
+    font-family: "El Messiri";
+    padding: 0 15px;
+    width: 70%;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.input-text {
+    font-family: "El Messiri";
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    margin-top: 12px;
+    text-align: left;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input:focus {
+    border-color: #B13720;
+    outline: none;
+}
+
+.buttons-single {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.button-text {
+    font-size: 14px;
+    font-family: "El Messiri";
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-text:hover {
+    color: #B13720;
+}
+
+.sigin-button {
+    display: block;
+    width: 420px;
+    height: 70px;
+    background-color: #B13720;
+    color: white;
+    border: 2px solid #B13720;
+    border-radius: 40px;
+    font-family: "Orelega One";
+    font-size: 28px;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: -25px;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px #C09F99;
+}
+
+.sigin-button:hover {
+    background-color: white;
+    color: #B13720;
+    border: 2px solid #B13720;
+}
+
+.sigin-button:active {
+    transform: scale(1.05);
+    background-color: white;
+    color: #B13720;
+    border: 2px solid #B13720;
+}
+
+.spacer {
+    height: 65px;
+    width: 100%;
+}
