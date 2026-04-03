@@ -1,6 +1,5 @@
 class MyHeader extends HTMLElement {
     connectedCallback() {
-        // для нормального отображаения пути файлов
         const isInLayouts = window.location.pathname.includes('/layouts/');
         const prefix = isInLayouts ? '../' : '';
 
@@ -16,7 +15,6 @@ class MyHeader extends HTMLElement {
                             <img src="${prefix}icons/Tomu_logo.png" alt="Logo">
                         </a>
                     </div>
-
                     <button class="login-button" onclick="window.location.href='${prefix}layouts/auth.php'">
                         <img src="${prefix}icons/voiti.png" alt="Вход">
                         <span class="login-text">Войти</span>
@@ -32,7 +30,14 @@ class MyHeader extends HTMLElement {
                         <button class="nav-button" onclick="window.location.href='${prefix}layouts/menu.php?category=6'">Десерты</button>
                     </nav>
                 </div>
-            </header>`;
+            </header>
+        `;
+
+        setTimeout(() => {
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
+        }, 100);
     }
 }
 

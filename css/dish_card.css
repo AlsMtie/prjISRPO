@@ -5,7 +5,8 @@
     display: flex;
     flex-direction: column;
     font-family: 'El Messiri';
-    padding: 0 0 15px 0; 
+    padding: 0 0 15px 0;
+    height: 380px;
 }
 
 .dish-image {
@@ -15,31 +16,38 @@
     border-radius: 5px;
     background-color: #B13720;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .dish-title {
     display: flex;
-    align-items: center; 
-    gap: 8px; 
+    flex-direction: column;
+    gap: 4px;
     padding-left: 8px;
+    padding-right: 8px;
     padding-top: 10px;
-    margin-bottom: 5px; 
+    margin-bottom: 10px;
+    min-height: 60px;
+    flex-shrink: 0;
 }
 
 .dish-name {
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'El Messiri';
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.2;
     text-align: left;
-    flex: 1;
-    word-wrap: break-word; 
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dish-gram {
     font-family: 'El Messiri';
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    color: #9F9F9F;
 }
 
 .dish-sostav {
@@ -58,6 +66,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
+    flex-shrink: 0;
 }
 
 .sostav-text {
@@ -72,8 +81,10 @@
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
-    box-sizing: border-box; 
-    margin-top: 5px;
+    box-sizing: border-box;
+    margin-top: auto;
+    padding-bottom: 5px;
+    flex-shrink: 0;
 }
 
 .dish-price {
@@ -101,7 +112,13 @@
     background-color: #B13720;
     box-shadow: 0 4px 20px #807F8F;
     flex-shrink: 0;
+    transition: transform 0.2s ease;
 }
+
+.add-to-cart-btn:hover {
+    transform: scale(1.05);
+}
+
 .add-plus {
     font-family: 'El Messiri';
     font-size: 24px;

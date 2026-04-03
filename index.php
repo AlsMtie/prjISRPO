@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <script src="scripts/cart-functions.js" defer></script>
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
 </head>
@@ -38,27 +39,27 @@
     <p class="menu-text">Меню</p>
 
     <div class="category-container">
-        <button class="category-button" onclick="window.location.href='layouts/menu.php'">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=1'">
             <img class="category-img" src="DishesImg/Goryachee_1.png" alt="Категория блюда">
             <span class = "category-text">Горячие блюда</span>
         </button>
-        <button class="category-button">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=2'">
             <img class="category-img" src="DishesImg/Soup_1.png" alt="Категория блюда">
             <span class = "category-text">Супы</span>
         </button>
-        <button class="category-button">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=3'">
             <img class="category-img" src="DishesImg/Salad_1.png" alt="Категория блюда">
             <span class = "category-text">Салаты</span>
         </button>
-        <button class="category-button">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=4'">
             <img class="category-img" src="DishesImg/Napitok_1.png" alt="Категория блюда">
             <span class = "category-text">Напитки</span>
         </button>
-        <button class="category-button">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=5'">
             <img class="category-img" src="DishesImg/Dobavki_1.png" alt="Категория блюда">
             <span class = "category-text">Добавки</span>
         </button>
-        <button class="category-button">
+        <button class="category-button" onclick="window.location.href='layouts/menu.php?category=6'">
             <img class="category-img" src="DishesImg/Desert_1.png" alt="Категория блюда">
             <span class = "category-text">Десерты</span>
         </button>

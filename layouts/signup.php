@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/signup.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <script src="../scripts/cart-functions.js" defer></script>
     <script src="../components/header.js"></script>
     <script src="../components/footer.js"></script>
 </head>
