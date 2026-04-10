@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'El Messiri';
+    src: url("ElMessiri-Regular.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'El Messiri';
+    src: url("ElMessiri-Medium.ttf") format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'El Messiri';
+    src: url("ElMessiri-Bold.ttf") format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OrelegaOne';
+    src: url("OrelegaOne-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+}

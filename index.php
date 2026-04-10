@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomy</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Orelega+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/fonts/fonts.css">
 
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <script src="scripts/cart-functions.js" defer></script>
+    <link rel="stylesheet" href="style/css/index.css">
+    <link rel="stylesheet" href="style/css/header.css">
+    <link rel="stylesheet" href="style/css/footer.css">
+    <script src="scripts/cart-functions.js"></script>
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
 </head>

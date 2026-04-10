@@ -1,6 +1,6 @@
 window.addToCart = function (item) {
 
-    // Получаем корзину из localStorage
+    //получаем корзину из localStorage
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
         cart = JSON.parse(cart);
@@ -8,7 +8,7 @@ window.addToCart = function (item) {
         cart = [];
     }
 
-    // Проверяем, есть ли уже такой товар
+    //проверяем, есть ли уже такой товар
     const existingIndex = cart.findIndex(cartItem => cartItem.id == item.id);
 
     if (existingIndex !== -1) {
@@ -23,14 +23,14 @@ window.addToCart = function (item) {
         });
     }
 
-    // Сохраняем обратно
+    //сохраняем обратно
     localStorage.setItem('tomy_cart', JSON.stringify(cart));
 
-    // Обновляем счетчик
+    //обновляем счетчик
     window.updateCartCount();
 };
 
-// Удаление товара из корзины
+//удаление товара из корзины
 window.removeFromCart = function (itemId) {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -41,7 +41,7 @@ window.removeFromCart = function (itemId) {
     window.updateCartCount();
 };
 
-// Обновление количества товара
+//обновление количества товара
 window.updateQuantity = function (itemId, newQuantity) {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -59,13 +59,13 @@ window.updateQuantity = function (itemId, newQuantity) {
     window.updateCartCount();
 };
 
-// Очистка корзины
+//очистка корзины
 window.clearCart = function () {
     localStorage.removeItem('tomy_cart');
     window.updateCartCount();
 };
 
-// Получение корзины
+//получение корзины
 window.getCart = function () {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -74,20 +74,20 @@ window.getCart = function () {
     return [];
 };
 
-// Подсчет количества товаров в корзине
+//подсчет количества товаров в корзине
 window.getCartCount = function () {
     const cart = window.getCart();
     return cart.reduce((sum, item) => sum + item.quantity, 0);
 };
 
-// Подсчет общей суммы
+//подсчет общей суммы
 window.getCartTotal = function () {
     const cart = window.getCart();
     return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 };
 
 
-// Обновление счетчика в хедере
+//обновление счетчика
 window.updateCartCount = function () {
     const count = window.getCartCount();
     const cartButtons = document.querySelectorAll('.cart-button');
@@ -123,16 +123,12 @@ window.updateCartCount = function () {
         }
     });
 };
-window.loadCart = function() {
-    console.log('loadCart вызван - корзина загружена');
+window.loadCart = function () {
     const cart = window.getCart();
     if (window.updateCartCount) window.updateCartCount();
     return cart;
 };
 
-window.saveCart = function() {
-    console.log('saveCart вызван');
-};
 
 document.addEventListener('DOMContentLoaded', function () {
     window.updateCartCount();

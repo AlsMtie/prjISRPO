@@ -87,153 +87,36 @@
     white-space: nowrap;
 }
 
+.profile-button {
+    border: 0px;
+    border-radius: 10px;
+    height: 48px;
+    width: 123px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background-color: #B13720;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-button img {
+    width: 25px;
+    height: 25px;
+}
+
+.profile-text {
+    color: #fff;
+    font-size: 24px;
+    font-family: 'Orelega One';
+}
+
 .nav-button:hover {
     color: #B13720;
 }
 
-@media (max-width: 1200px) {
-    .header-container {
-        padding: 7px 40px;
-    }
 
-    .nav-menu {
-        gap: 50px;
-        padding: 15px 40px;
-    }
-}
-
-@media (max-width: 992px) {
-    .header-container {
-        padding: 7px 20px;
-    }
-
-    .cart-button {
-        width: 140px;
-    }
-
-    .cart-button img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .cart-text {
-        font-size: 18px;
-    }
-
-    .login-button {
-        width: 100px;
-        height: 40px;
-    }
-
-    .login-button img {
-        width: 20px;
-        height: 20px;
-    }
-
-    .login-text {
-        font-size: 18px;
-    }
-
-    .nav-menu {
-        gap: 30px;
-        padding: 15px 20px;
-    }
-
-    .nav-button {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header-container {
-        padding: 7px 15px;
-        height: 70px;
-    }
-
-    .cart-button {
-        width: 100px;
-    }
-
-    .cart-button img {
-        width: 40px;
-        height: 40px;
-    }
-
-    .cart-text {
-        font-size: 14px;
-    }
-
-    .login-button {
-        width: 80px;
-        height: 35px;
-        padding: 0 8px;
-    }
-
-    .login-button img {
-        width: 16px;
-        height: 16px;
-    }
-
-    .login-text {
-        font-size: 14px;
-    }
-
-    .logo-img img {
-        width: 80px;
-        height: auto;
-    }
-
-    .nav-container {
-        height: 45px;
-    }
-
-    .nav-menu {
-        gap: 20px;
-        padding: 10px 15px;
-    }
-
-    .nav-button {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 576px) {
-    .cart-text {
-        display: none;
-    }
-
-    .cart-button {
-        width: 50px;
-        justify-content: center;
-    }
-
-    .cart-button img {
-        width: 35px;
-        height: 35px;
-    }
-
-    .login-text {
-        display: none;
-    }
-
-    .login-button {
-        width: 45px;
-        justify-content: center;
-    }
-
-    .login-button img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .nav-menu {
-        gap: 12px;
-    }
-
-    .nav-button {
-        font-size: 12px;
-    }
-}
 
 .modal {
     display: none;

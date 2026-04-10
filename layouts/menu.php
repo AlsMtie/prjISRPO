@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomy - Меню</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Orelega+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/fonts/fonts.css">
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="../css/dish_card.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../style/global css/global.css">
+    <link rel="stylesheet" href="../style/css/menu.css">
+    <link rel="stylesheet" href="../style/css/dish_card.css">
+    <link rel="stylesheet" href="../style/css/header.css">
+    <link rel="stylesheet" href="../style/css/footer.css">
 
-    <script src="../components/header.js" defer></script>
-    <script src="../components/footer.js" defer></script>
-    <script src="../scripts/cart-functions.js" defer></script>
-    <script src="../components/dish_card.js" defer></script>
+    <script src="../scripts/func.js"></script>
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../scripts/cart-functions.js"></script>
+    <script src="../components/dish_card.js"></script>
 </head>
 <body>
     <?php
@@ -39,14 +38,18 @@
     
     $result = mysqli_query($conn, $query);
     ?>
-
+    <?php
+    session_start();
+    $isLoggedIn = isset($_SESSION['user_id']);
+    $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
+    ?>
     <my-header></my-header>
     
     <div class="menu-container">
         <div class="left-container">
             <div class="search-wrapper">
                 <input type="text" class="search-input" id="search-input" placeholder="Найти блюдо...">
-                <img src="../icons/search.png" alt="Поиск" class="search-icon">
+                <img src="../icons/search.png" alt="Поиск" class="search-icon" onclick="sanitizeAndSearch()">
             </div>
             <div class="filter-content">
                 <ul class="categories-grid">

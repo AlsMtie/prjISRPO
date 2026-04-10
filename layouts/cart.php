@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomy - Корзина</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Orelega+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/fonts/fonts.css">
 
-    <link rel="stylesheet" href="../css/cart.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/cart-item.css">
+    <link rel="stylesheet" href="../style/css/cart.css">
+    <link rel="stylesheet" href="../style/css/header.css">
+    <link rel="stylesheet" href="../style/css/footer.css">
+    <link rel="stylesheet" href="../style/css/cart-item.css">
     
-    <script src="../components/header.js" defer></script>
-    <script src="../components/footer.js" defer></script>
-    <script src="../components/cart-item.js" defer></script>
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../components/cart-item.js"></script>
 </head>
 <body>
     <?php
@@ -34,7 +32,6 @@
     }
     mysqli_close($conn);
     ?>
-    
     <my-header></my-header>
     
     <div class="cart-page">

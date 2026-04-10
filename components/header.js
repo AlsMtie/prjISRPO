@@ -15,9 +15,9 @@ class MyHeader extends HTMLElement {
                             <img src="${prefix}icons/Tomu_logo.png" alt="Logo">
                         </a>
                     </div>
-                    <button class="login-button" onclick="window.location.href='${prefix}layouts/auth.php'">
+                    <button class="profile-button" id="profile-btn" onclick="window.location.href='${prefix}layouts/auth.php'">
                         <img src="${prefix}icons/voiti.png" alt="Вход">
-                        <span class="login-text">Войти</span>
+                        <span class="profile-text">Войти</span>
                     </button>
                 </div>
                 <div class="nav-container">
@@ -32,12 +32,6 @@ class MyHeader extends HTMLElement {
                 </div>
             </header>
         `;
-
-        setTimeout(() => {
-            if (typeof updateCartCount === 'function') {
-                updateCartCount();
-            }
-        }, 100);
     }
 }
 

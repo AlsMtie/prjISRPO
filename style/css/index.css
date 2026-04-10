@@ -79,7 +79,3 @@ body {
     height: 1000px;
     width: 100%;
 }
-
-my-footer {
-    flex-shrink: 0;
-}
