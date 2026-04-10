@@ -1,7 +1,7 @@
 class DishCard extends HTMLElement {
     connectedCallback() {
-        const id = this.getAttribute('data-id') || Date.now().toString();
-        const image = this.getAttribute('image') || '../images/default.png';
+        const id = this.getAttribute('data-id') || 0;
+        const image = this.getAttribute('image') || '../Dishesimg/Goryachee_1.png';
         const name = this.getAttribute('name') || '';
         const gram = this.getAttribute('gram') || '500';
         const gr = this.getAttribute('gr') || 'гр.';

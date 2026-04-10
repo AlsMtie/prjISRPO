@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hash_pass = password_hash($password, PASSWORD_DEFAULT);
             $regestration_date = date('Y-m-d');
             
-            $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
+            $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) 
+            VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
             
             if (mysqli_query($conn, $insert_query)) {
                 $success = 'Регистрация прошла успешно!';

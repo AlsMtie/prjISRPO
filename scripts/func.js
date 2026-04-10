@@ -14,12 +14,12 @@ function sanitize(str) {
 function sanitizeForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return true;
-    
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
+
+    for (let i = 0; i < form.elements.length; i++) {
+        const input = form.elements[i];
         if (input.type !== 'password' && input.value) {
             input.value = sanitize(input.value);
         }
-    });
+    }
     return true;
 }

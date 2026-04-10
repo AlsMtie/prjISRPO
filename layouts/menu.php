@@ -91,13 +91,12 @@
                 ?>
                     <dish-card
                         id="dish-<?php echo $row['id']; ?>"
-                        data-id="<?php echo $row['id']; ?>"
-                        image="../<?php echo htmlspecialchars($imagePath); ?>"
-                        name="<?php echo htmlspecialchars($row['name']); ?>"
-                        gram="<?php echo htmlspecialchars($row['gram']); ?>"
+                        image="../<?php echo $imagePath; ?>"
+                        name="<?php echo $row['name']; ?>"
+                        gram="<?php echo $row['gram']; ?>"
                         gr="гр."
-                        price="<?php echo htmlspecialchars($row['price']); ?>"
-                        sostav="<?php echo htmlspecialchars($row['ingredients']); ?>"
+                        price="<?php echo $row['price']; ?>"
+                        sostav="<?php echo $row['ingredients']; ?>"
                     ></dish-card>
                 <?php endwhile; ?>
                 <?php
