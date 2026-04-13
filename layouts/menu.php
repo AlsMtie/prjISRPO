@@ -1,3 +1,25 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+$userName = $isLoggedIn ? $_SESSION['user_name'] : '';
+
+$host = 'localhost';
+ $user = 'root';
+$pass = '';
+$base = 'tomuLvovaAlesya';
+
+$conn = mysqli_connect($host, $user, $pass, $base);
+    
+$category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
+    
+if ($category > 0) {
+    $query = "SELECT * FROM `Dishes` WHERE category_id = $category";
+} else {
+    $query = "SELECT * FROM `Dishes`";
+}
+    
+$result = mysqli_query($conn, $query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,71 +36,52 @@
     <link rel="stylesheet" href="../style/css/footer.css">
 
     <script src="../scripts/func.js"></script>
+    <script>
+    window.isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+    window.userName = '<?php echo addslashes($userName); ?>';
+    </script>
     <script src="../components/header.js"></script>
     <script src="../components/footer.js"></script>
     <script src="../scripts/cart-functions.js"></script>
     <script src="../components/dish_card.js"></script>
 </head>
 <body>
-    <?php
-    $host = 'localhost';
-    $user = 'root';
-    $pass = '';
-    $base = 'tomuLvovaAlesya';
-
-    $conn = mysqli_connect($host, $user, $pass, $base);
-    
-    $category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
-    
-    if ($category > 0) {
-        $query = "SELECT * FROM `Dishes` WHERE category_id = $category";
-    } else {
-        $query = "SELECT * FROM `Dishes`";
-    }
-    
-    $result = mysqli_query($conn, $query);
-    ?>
-    <?php
-    session_start();
-    $isLoggedIn = isset($_SESSION['user_id']);
-    $userName = $isLoggedIn ? $_SESSION['user_name'] : '';
-    ?>
     <my-header></my-header>
     
     <div class="menu-container">
         <div class="left-container">
             <div class="search-wrapper">
                 <input type="text" class="search-input" id="search-input" placeholder="Найти блюдо...">
-                <img src="../icons/search.png" alt="Поиск" class="search-icon" onclick="sanitizeAndSearch()">
+                <img src="../src/icons/search.png" alt="Поиск" class="search-icon">
             </div>
             <div class="filter-content">
                 <ul class="categories-grid">
                     <li class="category-item <?php echo $category == 0 ? 'active' : ''; ?>" data-category="0">
-                        <img src="../DishesImg/Goryachee_2.png" alt="Все блюда" class="category-icon">
+                        <img src="../src/DishesImg/Goryachee_2.png" alt="Все блюда" class="category-icon">
                         <span class="category-name">Все блюда</span>
                     </li>
                     <li class="category-item <?php echo $category == 1 ? 'active' : ''; ?>" data-category="1">
-                        <img src="../DishesImg/Goryachee_1.png" alt="Горячие блюда" class="category-icon">
+                        <img src="../src/DishesImg/Goryachee_1.png" alt="Горячие блюда" class="category-icon">
                         <span class="category-name">Горячие блюда</span>
                     </li>
                     <li class="category-item <?php echo $category == 2 ? 'active' : ''; ?>" data-category="2">
-                        <img src="../DishesImg/Soup_1.png" alt="Супы" class="category-icon">
+                        <img src="../src/DishesImg/Soup_1.png" alt="Супы" class="category-icon">
                         <span class="category-name">Супы</span>
                     </li>
                     <li class="category-item <?php echo $category == 3 ? 'active' : ''; ?>" data-category="3">
-                        <img src="../DishesImg/Salad_1.png" alt="Салаты" class="category-icon">
+                        <img src="../src/DishesImg/Salad_1.png" alt="Салаты" class="category-icon">
                         <span class="category-name">Салаты</span>
                     </li>
                     <li class="category-item <?php echo $category == 4 ? 'active' : ''; ?>" data-category="4">
-                        <img src="../DishesImg/Napitok_1.png" alt="Напитки" class="category-icon">
+                        <img src="../src/DishesImg/Napitok_1.png" alt="Напитки" class="category-icon">
                         <span class="category-name">Напитки</span>
                     </li>
                     <li class="category-item <?php echo $category == 5 ? 'active' : ''; ?>" data-category="5">
-                        <img src="../DishesImg/Dobavki_1.png" alt="Добавки" class="category-icon">
+                        <img src="../src/DishesImg/Dobavki_1.png" alt="Добавки" class="category-icon">
                         <span class="category-name">Добавки</span>
                     </li>
                     <li class="category-item <?php echo $category == 6 ? 'active' : ''; ?>" data-category="6">
-                        <img src="../DishesImg/Desert_1.png" alt="Десерты" class="category-icon">
+                        <img src="../src/DishesImg/Desert_1.png" alt="Десерты" class="category-icon">
                         <span class="category-name">Десерты</span>
                     </li>
                 </ul>
@@ -90,8 +93,8 @@
                     $imagePath = trim($row['image'], '"\'');
                 ?>
                     <dish-card
-                        id="dish-<?php echo $row['id']; ?>"
-                        image="../<?php echo $imagePath; ?>"
+                        data-id="<?php echo $row['id']; ?>"
+                        image="../src/<?php echo $imagePath; ?>"
                         name="<?php echo $row['name']; ?>"
                         gram="<?php echo $row['gram']; ?>"
                         gr="гр."

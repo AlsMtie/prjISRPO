@@ -9,32 +9,28 @@ $conn = mysqli_connect($host, $user, $pass, $base);
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = trim($_POST['login']);
-    $password = $_POST['password'];
+$login = trim($_POST['login']);
+$password = $_POST['password'];
     
-    if (empty($login) || empty($password)) {
-        $error = 'Заполните все поля';
-    } else {
-        $query = "SELECT * FROM Users WHERE name = '$login' OR email = '$login'";
-        $result = mysqli_query($conn, $query);
-        $user_data = mysqli_fetch_assoc($result);
+if (empty($login) || empty($password)) {
+    $error = 'Заполните все поля';
+} else {
+    $query = "SELECT * FROM Users WHERE name = '$login' OR email = '$login'";
+    $result = mysqli_query($conn, $query);
+    $user_data = mysqli_fetch_assoc($result);
         
-        if ($user_data && password_verify($password, $user_data['password'])) {
-            $_SESSION['user_id'] = $user_data['id'];
-            $_SESSION['user_name'] = $user_data['name'];
-            $_SESSION['user_bonuses'] = $user_data['bonuses'];
+    if ($user_data && password_verify($password, $user_data['password'])) {
+        $_SESSION['user_id'] = $user_data['id'];
+        $_SESSION['user_name'] = $user_data['name'];
+        $_SESSION['user_bonuses'] = $user_data['bonuses'];
             
-            echo '<script>window.location.href = "profile.php";</script>';
-            exit();
-        } else {
-            $error = 'Неверный логин или пароль';
-        }
+        echo '<script>window.location.href = "profile.php";</script>';
+        exit();
+    } else {
+        $error = 'Неверный логин или пароль';
     }
 }
-mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +46,10 @@ mysqli_close($conn);
     <link rel="stylesheet" href="../style/css/footer.css">
     <script src="../scripts/func.js"></script>
     <script src="../scripts/cart-functions.js"></script>
+    <script>
+        window.isLoggedIn = false;
+        window.userName = '';
+    </script>
     <script src="../components/header.js"></script>
     <script src="../components/footer.js"></script>
 </head>

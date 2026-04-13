@@ -12,11 +12,11 @@ class CartItem extends HTMLElement {
                 <span class="cart-item-name">${name}</span>
                 <span class="cart-item-price">${price} ₽</span>
                 <button class="cart-item-minus">
-                    <img src="../icons/minus.png" alt="Удалить">
+                    <img src="../src/icons/minus.png" alt="Удалить">
                 </button>
                 <span class="cart-item-quantity">${quantity}</span>
                 <button class="cart-item-plus">
-                    <img src="../icons/plus.png" alt="Добавить">
+                    <img src="../src/icons/plus.png" alt="Добавить">
                 </button>
                 <span class="cart-item-total">${price * quantity} ₽</span>
             </div>

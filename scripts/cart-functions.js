@@ -1,6 +1,6 @@
 window.addToCart = function (item) {
 
-    //получаем корзину из localStorage
+    // Получаем корзину из localStorage
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
         cart = JSON.parse(cart);
@@ -8,7 +8,7 @@ window.addToCart = function (item) {
         cart = [];
     }
 
-    //проверяем, есть ли уже такой товар
+    // Проверяем, есть ли уже такой товар
     const existingIndex = cart.findIndex(cartItem => cartItem.id == item.id);
 
     if (existingIndex !== -1) {
@@ -23,14 +23,14 @@ window.addToCart = function (item) {
         });
     }
 
-    //сохраняем обратно
+    // Сохраняем обратно
     localStorage.setItem('tomy_cart', JSON.stringify(cart));
 
-    //обновляем счетчик
+    // Обновляем счетчик
     window.updateCartCount();
 };
 
-//удаление товара из корзины
+// Удаление товара из корзины
 window.removeFromCart = function (itemId) {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -41,7 +41,7 @@ window.removeFromCart = function (itemId) {
     window.updateCartCount();
 };
 
-//обновление количества товара
+// Обновление количества товара
 window.updateQuantity = function (itemId, newQuantity) {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -59,13 +59,13 @@ window.updateQuantity = function (itemId, newQuantity) {
     window.updateCartCount();
 };
 
-//очистка корзины
+// Очистка корзины
 window.clearCart = function () {
     localStorage.removeItem('tomy_cart');
     window.updateCartCount();
 };
 
-//получение корзины
+// Получение корзины
 window.getCart = function () {
     let cart = localStorage.getItem('tomy_cart');
     if (cart) {
@@ -74,20 +74,20 @@ window.getCart = function () {
     return [];
 };
 
-//подсчет количества товаров в корзине
+// Подсчет количества товаров в корзине
 window.getCartCount = function () {
     const cart = window.getCart();
     return cart.reduce((sum, item) => sum + item.quantity, 0);
 };
 
-//подсчет общей суммы
+// Подсчет общей суммы
 window.getCartTotal = function () {
     const cart = window.getCart();
     return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 };
 
 
-//обновление счетчика
+// Обновление счетчика
 window.updateCartCount = function () {
     const count = window.getCartCount();
     const cartButtons = document.querySelectorAll('.cart-button');
@@ -129,6 +129,9 @@ window.loadCart = function () {
     return cart;
 };
 
+window.saveCart = function () {
+    console.log('saveCart вызван');
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     window.updateCartCount();

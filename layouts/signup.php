@@ -7,53 +7,41 @@ $base = 'tomuLvovaAlesya';
 $conn = mysqli_connect($host, $user, $pass, $base);
 
 $error = '';
-$success = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name']);
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $phone = trim($_POST['phone']);
+$name = trim($_POST['name']);
+$password = $_POST['password'];
+$phone = trim($_POST['phone']);
+$email = !empty($_POST['email']) ? trim($_POST['email']) : null;
     
-    if (empty($_POST['email'])) {
-        $email = null;
-    } else {
-        $email = trim($_POST['email']);
-    }
+if (empty($name) || empty($password) || empty($phone)) {
+    $error = 'Заполните все обязательные поля';
+} elseif (strlen($password) < 6) {
+    $error = 'Пароль должен быть не менее 6 символов';
+} else {
+    $check_query = "SELECT id FROM users WHERE name = '$name' OR phone = '$phone'";
+    $check_result = mysqli_query($conn, $check_query);
     
-    if (empty($name) || empty($password) || empty($phone)) {
-        $error = 'Заполните поля';
-    } elseif ($password !== $confirm_password) {
-        $error = 'Пароли не совпадают';
-    } elseif (strlen($password) < 6) {
-        $error = 'Пароль должен быть не менее 6 символов';
+    if (mysqli_num_rows($check_result) > 0) {
+        $error = 'Пользователь с таким логином или телефоном уже существует';
     } else {
-        //проверка есть ли такой же пользователь
-        $check_query = "SELECT id FROM users WHERE name = '$name' OR phone = '$email'";
-        $check_result = mysqli_query($conn, $check_query);
-        
-        if (mysqli_num_rows($check_result) > 0) {
-            $error = 'Пользователь уже существует';
-        } 
-        else {
-            $hash_pass = password_hash($password, PASSWORD_DEFAULT);
-            $regestration_date = date('Y-m-d');
+        $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+        $regestration_date = date('Y-m-d');
             
-            $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) 
-            VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
+        $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) 
+        VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
             
-            if (mysqli_query($conn, $insert_query)) {
-                $success = 'Регистрация прошла успешно!';
-                echo '<script>window.location.href = "auth.php";</script>';
-            } 
-            else {
-                $error = 'Ошибка регистрации: ' . mysqli_error($conn);
-            }
+        if (mysqli_query($conn, $insert_query)) {
+            echo '<script>window.location.href = "auth.php";</script>';
+            exit();
+        } else {
+            $error = 'Ошибка регистрации';
         }
     }
 }
+
 mysqli_close($conn);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +57,10 @@ mysqli_close($conn);
     <link rel="stylesheet" href="../style/css/footer.css">
     <script src="../scripts/func.js"></script>
     <script src="../scripts/cart-functions.js"></script>
+    <script>
+        window.isLoggedIn = false;
+        window.userName = '';
+    </script>
     <script src="../components/header.js"></script>
     <script src="../components/footer.js"></script>
 </head>

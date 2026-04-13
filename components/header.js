@@ -2,22 +2,24 @@ class MyHeader extends HTMLElement {
     connectedCallback() {
         const isInLayouts = window.location.pathname.includes('/layouts/');
         const prefix = isInLayouts ? '../' : '';
+        const isLoggedIn = window.isLoggedIn || false;
+        const userName = window.userName || '';
 
         this.innerHTML = `
             <header>
                 <div class="header-container">
                     <button class="cart-button" onclick="window.location.href='${prefix}layouts/cart.php'">
-                        <img src="${prefix}icons/cart_icon.png" alt="Корзина">
+                        <img src="${prefix}src/icons/cart_icon.png" alt="Корзина">
                         <span class="cart-text">Корзина</span>
                     </button>
                     <div class="logo-img">
                         <a href="${prefix}index.php">
-                            <img src="${prefix}icons/Tomu_logo.png" alt="Logo">
+                            <img src="${prefix}src/icons/Tomu_logo.png" alt="Logo">
                         </a>
                     </div>
-                    <button class="profile-button" id="profile-btn" onclick="window.location.href='${prefix}layouts/auth.php'">
-                        <img src="${prefix}icons/voiti.png" alt="Вход">
-                        <span class="profile-text">Войти</span>
+                    <button class="profile-button" onclick="window.location.href='${prefix}layouts/${isLoggedIn ? 'profile.php' : 'auth.php'}'">
+                        <img src="${prefix}src/icons/${isLoggedIn ? 'profile.png' : 'voiti.png'}" alt="${isLoggedIn ? 'Профиль' : 'Вход'}">
+                        <span class="profile-text">${isLoggedIn ? 'Профиль' : 'Войти'}</span>
                     </button>
                 </div>
                 <div class="nav-container">

@@ -7,7 +7,7 @@ class MyFooter extends HTMLElement {
             <footer class="footer">
                 <div class="footer-container">
                     <div class="footer-logo">
-                        <img src="${prefix}icons/Tomu_logo.png" alt="Tomy Logo">
+                        <img src="${prefix}src/icons/Tomu_logo.png" alt="Tomy Logo">
                     </div>
                     
                     <div class="footer-links">

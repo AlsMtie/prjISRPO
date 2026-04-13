@@ -60,7 +60,6 @@ function getWordForm(n) {
     return 'товаров';
 }
 
-//обновление количества товара
 window.updateItemQuantity = function (itemId, newQuantity) {
     if (window.updateQuantity) {
         window.updateQuantity(itemId, newQuantity);
@@ -80,7 +79,6 @@ window.updateItemQuantity = function (itemId, newQuantity) {
     if (window.updateCartCount) window.updateCartCount();
 };
 
-//кдаление товара из корзины
 window.removeCartItem = function (itemId) {
     if (window.removeFromCart) {
         window.removeFromCart(itemId);
@@ -93,7 +91,6 @@ window.removeCartItem = function (itemId) {
     if (window.updateCartCount) window.updateCartCount();
 };
 
-//обновление корзины после изменений
 window.updateCartFromItems = function () {
     updateCartSummary();
     if (window.updateCartCount) window.updateCartCount();

@@ -1,7 +1,7 @@
 class DishCard extends HTMLElement {
     connectedCallback() {
         const id = this.getAttribute('data-id') || 0;
-        const image = this.getAttribute('image') || '../Dishesimg/Goryachee_1.png';
+        const image = this.getAttribute('image') || '../src/Dishesimg/Goryachee_1.png';
         const name = this.getAttribute('name') || '';
         const gram = this.getAttribute('gram') || '500';
         const gr = this.getAttribute('gr') || 'гр.';
@@ -11,7 +11,7 @@ class DishCard extends HTMLElement {
         this.innerHTML = `
             <div class="dish-card">
                 <div class="dish-image">
-                    <img src="${image}" alt="${name}" onerror="this.src='../DishesImg/Goryachee_1.png'">
+                    <img src="${image}" alt="${name}"">
                 </div>
                 <div class="dish-content">
                     <div class="dish-title">
@@ -26,7 +26,7 @@ class DishCard extends HTMLElement {
                             ${price} <span class="currency">₽</span>
                         </span>
                         <button class="add-to-cart-btn" data-id="${id}" data-name="${name}" data-price="${price}" data-image="${image}">
-                            <img src="../icons/cart.png" alt="В корзину" class="cart-icon">
+                            <img src="../src/icons/cart.png" alt="В корзину" class="cart-icon">
                             <span class="add-plus">+</span>
                         </button>
                     </div>
@@ -39,6 +39,11 @@ class DishCard extends HTMLElement {
             addButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                if (!window.isLoggedIn) {
+                    alert('Войдите в аккаунт, чтобы добавить товар в корзину');
+                    window.location.href = 'auth.php';
+                    return;
+                }
 
                 const id = addButton.getAttribute('data-id');
                 const name = addButton.getAttribute('data-name');
