@@ -1,4 +1,15 @@
-<?php session_start(); ?>
+<?php
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    $isLoggedIn = true;
+    $userName = $_SESSION['user_name'];
+} else {
+    $isLoggedIn = false;
+    $userName = '';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +18,21 @@
     <title>Tomy</title>
 
     <link rel="stylesheet" href="style/fonts/fonts.css">
-
+    <link rel="icon" type="image/png" href="src/icons/Tomu_logo.png">
     <link rel="stylesheet" href="style/css/index.css">
     <link rel="stylesheet" href="style/css/header.css">
     <link rel="stylesheet" href="style/css/footer.css">
     <script src="scripts/cart-functions.js"></script>
     <script>
-        window.isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
-        window.userName = '<?php echo isset($_SESSION['user_name']) ? addslashes($_SESSION['user_name']) : ''; ?>';
+        <?php
+        if ($isLoggedIn) {
+            echo 'window.isLoggedIn = true;';
+            echo 'window.userName = "' . addslashes($userName) . '";';
+        } else {
+            echo 'window.isLoggedIn = false;';
+            echo 'window.userName = "";';
+        }
+        ?>
     </script>
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>

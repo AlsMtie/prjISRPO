@@ -1,138 +1,147 @@
-window.addToCart = function (item) {
-
+// Добавление товара в корзину
+window.addToCart = function(item) {
     // Получаем корзину из localStorage
-    let cart = localStorage.getItem('tomy_cart');
-    if (cart) {
-        cart = JSON.parse(cart);
-    } else {
-        cart = [];
+    var cartStr = localStorage.getItem('tomy_cart');
+    var cart = [];
+    if (cartStr) {
+        cart = JSON.parse(cartStr);
     }
-
+    
     // Проверяем, есть ли уже такой товар
-    const existingIndex = cart.findIndex(cartItem => cartItem.id == item.id);
-
+    var existingIndex = -1;
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].id == item.id) {
+            existingIndex = i;
+            break;
+        }
+    }
+    
     if (existingIndex !== -1) {
-        cart[existingIndex].quantity += 1;
+        cart[existingIndex].quantity = cart[existingIndex].quantity + 1;
     } else {
-        cart.push({
+        var newItem = {
             id: item.id,
             name: item.name,
             price: item.price,
             image: item.image,
             quantity: 1
-        });
+        };
+        cart.push(newItem);
     }
-
-    // Сохраняем обратно
+    
     localStorage.setItem('tomy_cart', JSON.stringify(cart));
-
-    // Обновляем счетчик
     window.updateCartCount();
 };
 
 // Удаление товара из корзины
-window.removeFromCart = function (itemId) {
-    let cart = localStorage.getItem('tomy_cart');
-    if (cart) {
-        cart = JSON.parse(cart);
-        cart = cart.filter(item => item.id != itemId);
-        localStorage.setItem('tomy_cart', JSON.stringify(cart));
+window.removeFromCart = function(itemId) {
+    var cartStr = localStorage.getItem('tomy_cart');
+    if (!cartStr) return;
+    var cart = JSON.parse(cartStr);
+    var newCart = [];
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].id != itemId) {
+            newCart.push(cart[i]);
+        }
     }
+    localStorage.setItem('tomy_cart', JSON.stringify(newCart));
     window.updateCartCount();
 };
 
 // Обновление количества товара
-window.updateQuantity = function (itemId, newQuantity) {
-    let cart = localStorage.getItem('tomy_cart');
-    if (cart) {
-        cart = JSON.parse(cart);
-        const item = cart.find(item => item.id == itemId);
-        if (item) {
+window.updateQuantity = function(itemId, newQuantity) {
+    var cartStr = localStorage.getItem('tomy_cart');
+    if (!cartStr) return;
+    var cart = JSON.parse(cartStr);
+    var found = false;
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].id == itemId) {
             if (newQuantity <= 0) {
+                // удаляем
                 window.removeFromCart(itemId);
             } else {
-                item.quantity = newQuantity;
+                cart[i].quantity = newQuantity;
                 localStorage.setItem('tomy_cart', JSON.stringify(cart));
             }
+            found = true;
+            break;
         }
     }
     window.updateCartCount();
 };
 
 // Очистка корзины
-window.clearCart = function () {
+window.clearCart = function() {
     localStorage.removeItem('tomy_cart');
     window.updateCartCount();
 };
 
 // Получение корзины
-window.getCart = function () {
-    let cart = localStorage.getItem('tomy_cart');
-    if (cart) {
-        return JSON.parse(cart);
+window.getCart = function() {
+    var cartStr = localStorage.getItem('tomy_cart');
+    if (cartStr) {
+        return JSON.parse(cartStr);
     }
     return [];
 };
 
-// Подсчет количества товаров в корзине
-window.getCartCount = function () {
-    const cart = window.getCart();
-    return cart.reduce((sum, item) => sum + item.quantity, 0);
+// Подсчёт количества товаров в корзине
+window.getCartCount = function() {
+    var cart = window.getCart();
+    var sum = 0;
+    for (var i = 0; i < cart.length; i++) {
+        sum = sum + cart[i].quantity;
+    }
+    return sum;
 };
 
-// Подсчет общей суммы
-window.getCartTotal = function () {
-    const cart = window.getCart();
-    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+// Подсчёт общей суммы
+window.getCartTotal = function() {
+    var cart = window.getCart();
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+        total = total + (cart[i].price * cart[i].quantity);
+    }
+    return total;
 };
 
-
-// Обновление счетчика
-window.updateCartCount = function () {
-    const count = window.getCartCount();
-    const cartButtons = document.querySelectorAll('.cart-button');
-
-    cartButtons.forEach(btn => {
-        const existingBadge = btn.querySelector('.cart-badge');
+// Обновление счётчика на иконке корзины
+window.updateCartCount = function() {
+    var count = window.getCartCount();
+    var cartButtons = document.querySelectorAll('.cart-button');
+    
+    for (var i = 0; i < cartButtons.length; i++) {
+        var btn = cartButtons[i];
+        var existingBadge = btn.querySelector('.cart-badge');
         if (existingBadge) {
             existingBadge.remove();
         }
-
+        
         if (count > 0) {
-            const badge = document.createElement('span');
+            var badge = document.createElement('span');
             badge.className = 'cart-badge';
             badge.textContent = count;
-            badge.style.cssText = `
-                position: absolute;
-                top: -5px;
-                right: -5px;
-                background-color: #B13720;
-                color: white;
-                border-radius: 50%;
-                width: 22px;
-                height: 22px;
-                font-size: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'El Messiri';
-                font-weight: bold;
-            `;
+            badge.style.cssText = 'position: absolute; top: -5px; right: -5px; background-color: #B13720; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-family: \'El Messiri\'; font-weight: bold;';
             btn.style.position = 'relative';
             btn.appendChild(badge);
         }
-    });
+    }
 };
-window.loadCart = function () {
-    const cart = window.getCart();
-    if (window.updateCartCount) window.updateCartCount();
+
+// Загрузка корзины (для совместимости)
+window.loadCart = function() {
+    var cart = window.getCart();
+    if (window.updateCartCount) {
+        window.updateCartCount();
+    }
     return cart;
 };
 
-window.saveCart = function () {
-    console.log('saveCart вызван');
+window.saveCart = function() {
+    // ничего не делаем
 };
 
-document.addEventListener('DOMContentLoaded', function () {
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
     window.updateCartCount();
 });

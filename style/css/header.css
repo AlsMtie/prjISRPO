@@ -83,8 +83,6 @@
     font-weight: 500;
     color: #333;
     cursor: pointer;
-    transition: color 0.3s;
-    white-space: nowrap;
 }
 
 .profile-button {
@@ -116,7 +114,23 @@
     color: #B13720;
 }
 
+.profile-button-logged {
+    background-color: #fff;
+    width: 150px;
+    box-shadow: none;
+}
 
+.profile-button-logged .profile-text {
+    color: #000;
+    margin-left: -25px;
+}
+
+.profile-button-logged img {
+    width: 68px;
+    height: 68px;
+    position: relative;
+    left: -30px;
+}
 
 .modal {
     display: none;
@@ -127,8 +141,6 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 .modal-content {
@@ -139,7 +151,6 @@
     width: 80%;
     max-width: 500px;
     position: relative;
-    animation: slideDown 0.3s ease;
 }
 
 .close {

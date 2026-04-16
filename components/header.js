@@ -3,7 +3,23 @@ class MyHeader extends HTMLElement {
         const isInLayouts = window.location.pathname.includes('/layouts/');
         const prefix = isInLayouts ? '../' : '';
         const isLoggedIn = window.isLoggedIn || false;
-        const userName = window.userName || '';
+
+        let profileButtonClass = '';
+        let profileIcon = '';
+        let profileLink = '';
+        let profileText = '';
+
+        if (isLoggedIn) {
+            profileButtonClass = 'profile-button-logged';
+            profileIcon = 'profile.png';
+            profileLink = 'profile.php';
+            profileText = 'Профиль';
+        } else {
+            profileButtonClass = '';
+            profileIcon = 'voiti.png';
+            profileLink = 'auth.php';
+            profileText = 'Войти';
+        }
 
         this.innerHTML = `
             <header>
@@ -17,9 +33,9 @@ class MyHeader extends HTMLElement {
                             <img src="${prefix}src/icons/Tomu_logo.png" alt="Logo">
                         </a>
                     </div>
-                    <button class="profile-button" onclick="window.location.href='${prefix}layouts/${isLoggedIn ? 'profile.php' : 'auth.php'}'">
-                        <img src="${prefix}src/icons/${isLoggedIn ? 'profile.png' : 'voiti.png'}" alt="${isLoggedIn ? 'Профиль' : 'Вход'}">
-                        <span class="profile-text">${isLoggedIn ? 'Профиль' : 'Войти'}</span>
+                    <button class="profile-button ${profileButtonClass}" onclick="window.location.href='${prefix}layouts/${profileLink}'">
+                        <img src="${prefix}src/icons/${profileIcon}" alt="${profileText}">
+                        <span class="profile-text">${profileText}</span>
                     </button>
                 </div>
                 <div class="nav-container">

@@ -12,29 +12,38 @@ $name = trim($_POST['name']);
 $password = $_POST['password'];
 $phone = trim($_POST['phone']);
 $email = !empty($_POST['email']) ? trim($_POST['email']) : null;
-    
-if (empty($name) || empty($password) || empty($phone)) {
-    $error = 'Заполните все обязательные поля';
-} elseif (strlen($password) < 6) {
-    $error = 'Пароль должен быть не менее 6 символов';
-} else {
-    $check_query = "SELECT id FROM users WHERE name = '$name' OR phone = '$phone'";
-    $check_result = mysqli_query($conn, $check_query);
-    
-    if (mysqli_num_rows($check_result) > 0) {
-        $error = 'Пользователь с таким логином или телефоном уже существует';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (empty($name) || empty($password) || empty($phone)) {
+        $error = 'Заполните все обязательные поля';
+    } elseif (strlen($password) < 6) {
+        $error = 'Пароль должен быть не менее 6 символов';
+    } elseif (!preg_match("/^[a-zA-Z0-9_]+$/", $name)) {
+        $error = 'Логин может содержать только буквы, цифры и знак подчеркивания';
+    } elseif (!preg_match("/^[a-zA-Z0-9!@#$%^&*()_+]+$/", $password)) {
+        $error = 'Пароль может содержать только буквы, цифры и символы !@#$%^&*()_+';
+    } elseif (!preg_match("/^[0-9]+$/", $phone)) {
+        $error = 'Телефон должен содержать только цифры';
+    } elseif (!empty($email) && !preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+        $error = 'Введите корректный email';
     } else {
-        $hash_pass = password_hash($password, PASSWORD_DEFAULT);
-        $regestration_date = date('Y-m-d');
-            
-        $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) 
-        VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
-            
-        if (mysqli_query($conn, $insert_query)) {
-            echo '<script>window.location.href = "auth.php";</script>';
-            exit();
+        $check_query = "SELECT id FROM users WHERE name = '$name' OR phone = '$phone' OR email ='$email'";
+        $check_result = mysqli_query($conn, $check_query);
+        
+        if (mysqli_num_rows($check_result) > 0) {
+            $error = 'Пользователь с таким логином, телефоном или эл. почтой уже существует';
         } else {
-            $error = 'Ошибка регистрации';
+            $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+            $regestration_date = date('Y-m-d');
+                
+            $insert_query = "INSERT INTO Users(name, password, email, phone, bonuses, regestration_date) 
+            VALUES ('$name', '$hash_pass', '$email', '$phone', 0, '$regestration_date')";
+                
+            if (mysqli_query($conn, $insert_query)) {
+                echo '<script>window.location.href = "auth.php";</script>';
+                exit();
+            } else {
+                $error = 'Ошибка регистрации';
+            }
         }
     }
 }
@@ -50,7 +59,7 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomy - Регистрация</title>
     <link rel="stylesheet" href="../style/fonts/fonts.css">
-
+    <link rel="icon" href="../src/icons/Tomu_logo.png">
     <link rel="stylesheet" href="../style/global css/global.css">
     <link rel="stylesheet" href="../style/css/signup.css">
     <link rel="stylesheet" href="../style/css/header.css">
@@ -103,6 +112,9 @@ mysqli_close($conn);
             </div>
     </div>
     <button class="sigin-button">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    <?php if ($error): ?>
+    <div style="color: red; text-align: center; font-family: 'El Messiri'; margin-top: 15px;"><?php echo $error; ?></div>
+    <?php endif; ?>
     </form>
     <div class="spacer"></div>
     <my-footer></my-footer>

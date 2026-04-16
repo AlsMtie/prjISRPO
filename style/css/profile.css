@@ -4,9 +4,9 @@
     max-width: 1920px;
     margin: 0 auto;
     padding: 15px 40px 0 40px;
-    min-height: 1435px;
     margin-top: 20px;
 }
+
 
 .left-container {
     width: 645px;
@@ -146,6 +146,183 @@ h2 {
     text-align: center;
     margin-top: 5px;
     line-height: 1;
+}
+
+.hist-container h2 {
+    margin-bottom: 20px;
+}
+
+.hist-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.hist-item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hist-pole {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.up-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-text {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.details-title {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 800;
+    margin-left: 20px;
+}
+
+.total-amount {
+    font-family: 'El Messiri';
+    font-size: 24px;
+    font-weight: 800;
+    color: #000;
+    margin: 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 0;
+}
+
+.left-col {
+    width: 200px;
+    padding-left: 20px;
+}
+
+.delivery-type-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.status-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.mid-col {
+    width: 350px;
+}
+
+.adres-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    color: #554B6C;
+    margin: 5px 0;
+}
+
+.bonuses-earned-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    color: #554B6C;
+    margin: 5px 0;
+}
+
+.bonuses-spent-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    color: #554B6C;
+    margin: 5px 0;
+}
+
+.items-container {
+    flex: 1;
+    text-align: right;
+}
+
+.count-text {
+    font-family: 'El Messiri';
+    font-size: 18px;
+    font-weight: 800;
+    margin-right: 500px;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'El Messiri';
+    font-size: 18px;
+    margin: 5px 0;
+    gap: 30px;
+}
+
+.item-name {
+    text-align: left;
+    font-weight: 800;
+}
+
+.item-price {
+    text-align: right;
+    min-width: 80px;
+    font-weight: 800;
+}
+
+.total-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+
+.logout-btn {
+    border: 0px;
+    border-radius: 10px;
+    height: 48px;
+    width: 123px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-left: 400px;
+    background-color: #B13720;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logout-btn img {
+    width: 25px;
+    height: 25px;
+}
+
+.logout-text {
+    color: #fff;
+    font-size: 24px;
+    font-family: 'Orelega One';
+}
+
+.logout-btn:hover {
+    background-color: #8f2b1a;
+    transform: scale(1.02);
+    cursor: pointer;
 }
 
 .modal {

@@ -15,8 +15,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     padding: 20px;
     flex-shrink: 0;
-    position: sticky;
-    top: 100px;
+    top: 20px;
     align-self: flex-start;
 }
 
@@ -28,12 +27,19 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     padding: 30px;
     flex: 1;
+
+}
+
+.dishes-wrapper {
+    max-width: 1205px;
+    margin: 0 auto;
 }
 
 .dishes-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 40px 20px;
+
 }
 
 .search-wrapper {
@@ -88,7 +94,6 @@
     border-radius: 20px;
     cursor: pointer;
     border: 3px solid transparent;
-    transition: border-color 0.3s ease;
 }
 
 .category-item:hover {
