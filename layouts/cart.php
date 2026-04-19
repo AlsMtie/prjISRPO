@@ -3,13 +3,18 @@ session_start();
 $conn = mysqli_connect('localhost','root','','tomuLvovaAlesya');
 
 if(!isset($_SESSION['user_id'])){
-    echo '<div style="text-align:center;padding:50px"><h2>Доступ ограничен</h2><p>Войдите в аккаунт</p><button onclick="location.href=\'auth.php\'" style="background:#B13720;color:#fff;border:none;padding:10px 30px;border-radius:30px;cursor:pointer">Войти</button></div>';
+    echo '
+    <div style="text-align:center;padding:50px">
+    <h2>Доступ ограничен</h2>
+    <p>Войдите в аккаунт</p>
+    <button onclick="location.href=\'auth.php\'" style="background:#B13720;color:#fff;border:none;padding:10px 30px;border-radius:30px;cursor:pointer">Войти
+    </button>
+    </div>';
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
-// Обработка сохранения заказа (без изменений)
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['save_order'])){
     $data = json_decode($_POST['order_data'], true);
     $num = date('Ymd').rand(10000,99999);
@@ -137,9 +142,6 @@ mysqli_close($conn);
 </div>
 
 <script>
-// ------------------------------------------------------------------
-// 1. Данные
-// ------------------------------------------------------------------
 var cafes = <?=json_encode($cafes)?>;
 var addresses = <?=json_encode($addresses)?>;
 var cart = JSON.parse(localStorage.getItem('tomy_cart') || '[]');
@@ -147,13 +149,8 @@ var selectedPickupId = (cafes.length > 0) ? cafes[0].id : null;
 var selectedDeliveryId = (addresses.length > 0) ? addresses[0].id : null;
 var usedBonuses = 0;
 var userBonuses = window.userBonuses;
-
-// Флаг для предотвращения повторной отправки заказа
 var isSubmitting = false;
 
-// ------------------------------------------------------------------
-// 2. Отрисовка товаров и сводки
-// ------------------------------------------------------------------
 function renderCartItems() {
     var container = document.getElementById('cart-items-list');
     var cartCountSpan = document.getElementById('cart-count');
@@ -212,10 +209,6 @@ document.getElementById('clear-cart-btn').onclick = function() {
     usedBonuses = 0;
     saveCart();
 };
-
-// ------------------------------------------------------------------
-// 3. Рендер адресов
-// ------------------------------------------------------------------
 function renderPickupAddresses() {
     if (cafes.length === 0) return '<div>Нет адресов</div>';
     var html = '<div class="pickup-addresses">';
@@ -247,10 +240,6 @@ function renderDeliveryAddresses() {
     html += '</div>';
     return html;
 }
-
-// ------------------------------------------------------------------
-// 4. Построение правого блока (единый шаблон)
-// ------------------------------------------------------------------
 function buildRightBlock(method) {
     var isPickup = (method === 'pickup');
     var title = isPickup ? 'Место выдачи' : 'Адрес доставки';
@@ -312,12 +301,7 @@ function buildRightBlock(method) {
         </div>
     `;
 }
-
-// ------------------------------------------------------------------
-// 5. Привязка обработчиков после отрисовки блока
-// ------------------------------------------------------------------
 function attachHandlers(method) {
-    // Радио-кнопки
     var radioName = (method === 'pickup') ? 'pickup_address' : 'delivery_address';
     var radios = document.querySelectorAll('input[name="' + radioName + '"]');
     for (var i = 0; i < radios.length; i++) {
@@ -338,17 +322,14 @@ function attachHandlers(method) {
         };
     }
     
-    // Кнопка применения бонусов
     var bonusBtn = document.getElementById('apply-bonus-btn');
     if (bonusBtn) {
-        // Убираем старый обработчик, если был
         bonusBtn.onclick = null;
         bonusBtn.onclick = function() {
             var bonusInput = document.getElementById('bonus-input');
             var rawValue = bonusInput.value;
             var val = parseInt(rawValue);
             if (isNaN(val)) val = 0;
-            // Считаем текущую сумму корзины
             var subtotal = 0;
             for (var i = 0; i < cart.length; i++) subtotal += cart[i].price * cart[i].quantity;
             if (val > userBonuses) val = userBonuses;
@@ -361,7 +342,6 @@ function attachHandlers(method) {
         };
     }
     
-    // Кнопка промокода
     var promoBtn = document.getElementById('apply-promo-btn');
     if (promoBtn) {
         promoBtn.onclick = null;
@@ -373,13 +353,10 @@ function attachHandlers(method) {
     }
 }
 
-// ------------------------------------------------------------------
-// 6. Переключение методов (самовывоз / доставка)
-// ------------------------------------------------------------------
 function showMethod(method) {
     var container = document.getElementById('method-content');
     container.innerHTML = buildRightBlock(method);
-    attachHandlers(method); // обязательно после вставки HTML
+    attachHandlers(method); 
     updateSummary();
 }
 
@@ -394,9 +371,6 @@ for (var i = 0; i < methodBtns.length; i++) {
     };
 }
 
-// ------------------------------------------------------------------
-// 7. Модальные окна
-// ------------------------------------------------------------------
 function openAddressModal() {
     document.getElementById('addressModal').style.display = 'block';
 }
@@ -404,9 +378,6 @@ function closeAddressModal() {
     document.getElementById('addressModal').style.display = 'none';
 }
 
-// ------------------------------------------------------------------
-// 8. Инициализация
-// ------------------------------------------------------------------
 showMethod('pickup');
 renderCartItems();
 
@@ -425,9 +396,6 @@ window.updateCartItemQuantity = function(id, newQ) {
     }
 };
 
-// ------------------------------------------------------------------
-// 9. Обработчик оплаты с защитой от повторных нажатий
-// ------------------------------------------------------------------
 document.getElementById('pay-btn').onclick = function() {
     if (isSubmitting) {
         alert('Заказ уже оформляется, подождите...');
@@ -479,14 +447,12 @@ document.getElementById('pay-btn').onclick = function() {
         });
     }
     
-    // Обновление бонусов
     fetch(location.href, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'update_bonuses=1&used_bonuses=' + usedBonuses + '&earn_bonuses=' + earn
     });
     
-    // Сохранение заказа
     fetch(location.href, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

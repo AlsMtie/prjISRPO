@@ -1,4 +1,3 @@
-// Добавление товара в корзину
 window.addToCart = function(item) {
     // Получаем корзину из localStorage
     var cartStr = localStorage.getItem('tomy_cart');
@@ -7,7 +6,6 @@ window.addToCart = function(item) {
         cart = JSON.parse(cartStr);
     }
     
-    // Проверяем, есть ли уже такой товар
     var existingIndex = -1;
     for (var i = 0; i < cart.length; i++) {
         if (cart[i].id == item.id) {
@@ -33,7 +31,6 @@ window.addToCart = function(item) {
     window.updateCartCount();
 };
 
-// Удаление товара из корзины
 window.removeFromCart = function(itemId) {
     var cartStr = localStorage.getItem('tomy_cart');
     if (!cartStr) return;
@@ -48,7 +45,6 @@ window.removeFromCart = function(itemId) {
     window.updateCartCount();
 };
 
-// Обновление количества товара
 window.updateQuantity = function(itemId, newQuantity) {
     var cartStr = localStorage.getItem('tomy_cart');
     if (!cartStr) return;
@@ -57,7 +53,6 @@ window.updateQuantity = function(itemId, newQuantity) {
     for (var i = 0; i < cart.length; i++) {
         if (cart[i].id == itemId) {
             if (newQuantity <= 0) {
-                // удаляем
                 window.removeFromCart(itemId);
             } else {
                 cart[i].quantity = newQuantity;
@@ -70,13 +65,11 @@ window.updateQuantity = function(itemId, newQuantity) {
     window.updateCartCount();
 };
 
-// Очистка корзины
 window.clearCart = function() {
     localStorage.removeItem('tomy_cart');
     window.updateCartCount();
 };
 
-// Получение корзины
 window.getCart = function() {
     var cartStr = localStorage.getItem('tomy_cart');
     if (cartStr) {
@@ -85,7 +78,6 @@ window.getCart = function() {
     return [];
 };
 
-// Подсчёт количества товаров в корзине
 window.getCartCount = function() {
     var cart = window.getCart();
     var sum = 0;
@@ -95,7 +87,6 @@ window.getCartCount = function() {
     return sum;
 };
 
-// Подсчёт общей суммы
 window.getCartTotal = function() {
     var cart = window.getCart();
     var total = 0;
@@ -105,7 +96,6 @@ window.getCartTotal = function() {
     return total;
 };
 
-// Обновление счётчика на иконке корзины
 window.updateCartCount = function() {
     var count = window.getCartCount();
     var cartButtons = document.querySelectorAll('.cart-button');
@@ -128,7 +118,6 @@ window.updateCartCount = function() {
     }
 };
 
-// Загрузка корзины (для совместимости)
 window.loadCart = function() {
     var cart = window.getCart();
     if (window.updateCartCount) {
@@ -138,10 +127,8 @@ window.loadCart = function() {
 };
 
 window.saveCart = function() {
-    // ничего не делаем
 };
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     window.updateCartCount();
 });
