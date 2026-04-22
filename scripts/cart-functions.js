@@ -1,5 +1,4 @@
 window.addToCart = function(item) {
-    // Получаем корзину из localStorage
     var cartStr = localStorage.getItem('tomy_cart');
     var cart = [];
     if (cartStr) {
