@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+function validateCsrf() {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Ошибка безопасности. Обновите страницу и попробуйте снова.');
+    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $conn = mysqli_connect('localhost','root','','tomuLvovaAlesya');
 
 if(!isset($_SESSION['user_id'])){
@@ -16,6 +28,7 @@ if(!isset($_SESSION['user_id'])){
 $user_id = $_SESSION['user_id'];
 
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['save_order'])){
+    validateCsrf();
     $data = json_decode($_POST['order_data'], true);
     $num = date('Ymd').rand(10000,99999);
     $type = $data['receiving_type'];
@@ -52,6 +65,7 @@ $res = mysqli_query($conn, "SELECT id, address FROM cafes WHERE is_active=1");
 while($row = mysqli_fetch_assoc($res)) $cafes[] = $row;
 
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['add_address'])){
+    validateCsrf();
     $full = $_POST['full_address'];
     $apt = $_POST['apartment'];
     $ent = $_POST['entrance'];
@@ -129,6 +143,7 @@ mysqli_close($conn);
         <span class="close" onclick="closeAddressModal()">&times;</span>
         <h3>Добавить адрес</h3>
         <form method="POST">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <input type="hidden" name="add_address" value="1">
             <input type="text" name="full_address" placeholder="Улица, дом" required>
             <input type="text" name="apartment" placeholder="Квартира">
@@ -385,7 +400,6 @@ window.updateCartItemQuantity = function(id, newQ) {
     if (window.updateQuantity) window.updateQuantity(id, newQ);
     cart = window.getCart();
     renderCartItems();
-    // После изменения корзины обновляем доступные бонусы (если нужно)
     var bonusInput = document.getElementById('bonus-input');
     if (bonusInput) {
         var subtotal = 0;
@@ -396,6 +410,7 @@ window.updateCartItemQuantity = function(id, newQ) {
     }
 };
 
+var csrfToken = document.querySelector('input[name="csrf_token"]').value;
 document.getElementById('pay-btn').onclick = function() {
     if (isSubmitting) {
         alert('Заказ уже оформляется, подождите...');
@@ -447,16 +462,10 @@ document.getElementById('pay-btn').onclick = function() {
         });
     }
     
-    fetch(location.href, {
+     fetch(location.href, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'update_bonuses=1&used_bonuses=' + usedBonuses + '&earn_bonuses=' + earn
-    });
-    
-    fetch(location.href, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'save_order=1&order_data=' + JSON.stringify(data)
+        body: 'save_order=1&order_data=' + JSON.stringify(data) + '&used_bonuses=' + usedBonuses + '&earn_bonuses=' + earn + '&csrf_token=' + encodeURIComponent(csrfToken)
     })
     .then(function(response) { return response.json(); })
     .then(function(result) {

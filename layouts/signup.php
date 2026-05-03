@@ -1,4 +1,8 @@
 <?php
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $host = 'localhost';
 $user = 'root';
 $pass = '';
@@ -8,11 +12,17 @@ $conn = mysqli_connect($host, $user, $pass, $base);
 
 $error = '';
 
-$name = trim($_POST['name']);
-$password = $_POST['password'];
-$phone = trim($_POST['phone']);
-$email = !empty($_POST['email']) ? trim($_POST['email']) : null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Ошибка безопасности. Обновите страницу и попробуйте снова.');
+    }
+    
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
+    $name = trim($_POST['name']);
+    $password = $_POST['password'];
+    $phone = trim($_POST['phone']);
+    $email = !empty($_POST['email']) ? trim($_POST['email']) : null;
     if (empty($name) || empty($password) || empty($phone)) {
         $error = 'Заполните все обязательные поля';
     } elseif (strlen($password) < 6) {
@@ -87,6 +97,7 @@ mysqli_close($conn);
         <?php endif; ?>
 
         <form id="registerForm" method="POST" action="" onsubmit="return sanitizeForm('registerForm')">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <p class="input-text">ЛОГИН</p>
             <div class="input-container">
                 <input type="text" name="name" class="input" placeholder="Введите логин">

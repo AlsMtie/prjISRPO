@@ -1,9 +1,21 @@
 <?php
 session_start();
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $conn = mysqli_connect('localhost', 'root', '', 'tomuLvovaAlesya');
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || 
+    $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Ошибка безопасности.');
+    }
+
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
     $login = trim($_POST['login']);
     $password = $_POST['password'];
     
@@ -48,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="auth-container">
     <p class="auth-text">АВТОРИЗАЦИЯ</p>
     <form id="loginForm" method="POST" onsubmit="return sanitizeForm('loginForm')">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
         <p class="input-text">ЛОГИН</p>
         <div class="input-container"><input type="text" name="login" class="input" placeholder="Введите логин или email" required></div>
         <p class="input-text">ПАРОЛЬ</p>

@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 if (!isset($_SESSION['user_id'])) {
     echo '<script>window.location.href = "auth.php";</script>';
     exit();
@@ -12,6 +16,13 @@ if (isset($_GET['logout'])) {
     exit();
 }
 
+function validateCsrf() {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Ошибка безопасности. Обновите страницу и попробуйте снова.');
+    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $conn = mysqli_connect('localhost', 'root', '', 'tomuLvovaAlesya');
 $user_id = $_SESSION['user_id'];
 
@@ -21,6 +32,7 @@ $user = mysqli_fetch_assoc($res);
 $addr_res = mysqli_query($conn, "SELECT id, full_addresses, apartment, entrance, floor, doorphone, comment FROM Users_addresses WHERE user_id = $user_id");
 
 if (isset($_POST['add_address'])) {
+    validateCsrf();
     $full = $_POST['full_addresses'];
     $apt = $_POST['apartment'];
     $ent = $_POST['entrance'];
@@ -38,12 +50,14 @@ if (isset($_POST['add_address'])) {
 }
 
 if (isset($_POST['delete_address'])) {
+    validateCsrf();
     mysqli_query($conn, "DELETE FROM Users_addresses WHERE id = {$_POST['id']} AND user_id = $user_id");
     header('Location: profile.php');
     exit();
 }
 
 if (isset($_POST['update_field'])) {
+    validateCsrf();
     $field = $_POST['field'];
     $value = $_POST['value'];
     
@@ -134,6 +148,7 @@ if (isset($_POST['update_field'])) {
                             ?>
                         </span>
                         <form method="POST" style="margin:0;">
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <input type="hidden" name="delete_address" value="1">
                             <input type="hidden" name="id" value="<?php echo $addr['id']; ?>">
                             <button type="submit" onclick="return confirm('Удалить?')" class="delete-btn">
@@ -260,6 +275,7 @@ if (isset($_POST['update_field'])) {
             <span class="close" onclick="closeEditModal()">&times;</span>
             <h3>Редактировать</h3>
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <input type="hidden" name="update_field" value="1">
                 <input type="hidden" name="field" id="editField">
                 <input type="text" name="value" id="editValue" required>
@@ -273,6 +289,7 @@ if (isset($_POST['update_field'])) {
             <span class="close" onclick="closeAddressModal()">&times;</span>
             <h3>Добавить адрес</h3>
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <input type="hidden" name="add_address" value="1">
                 <input type="text" name="full_addresses" placeholder="Улица, дом" required>
                 <input type="text" name="apartment" placeholder="Квартира">
